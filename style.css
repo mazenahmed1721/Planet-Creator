@@ -23,7 +23,7 @@ body {
     radial-gradient(1px 1px at 80px 200px, white, transparent),
     radial-gradient(1px 1px at 500px 60px, white, transparent);
   background-repeat: repeat;
-  background-size:550px 550px;
+  background-size: 550px 550px;
   opacity: 0.5;
   z-index: -2;
 }
@@ -52,7 +52,8 @@ body {
   max-width: 1200px;
   margin: 0 auto;
 }
-.controls, .info {
+.controls,
+.info {
   background: rgba(20, 20, 40, 0.6);
   border: 1px solid rgba(120, 140, 225, 0.2);
   border-radius: 16px;
@@ -60,29 +61,115 @@ body {
   width: 260px;
   flex-shrink: 0;
 }
-.controls h2, .info h2 {
+.controls h2,
+.info h2 {
   margin-top: 0;
   font-size: 1rem;
   letter-spacing: 2px;
   color: #cfd6ff;
 }
-.space{
-    width: 340px;
-    height: 240px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+.option {
+  margin-bottom: 18px;
 }
-.planet{
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    position: relative;
-    transition: width 0.3s, box-shadow 0.5s, filter 0.5s;
+.option label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  color: #a0a8c0;
 }
-.planet.earth{
-    background: radial-gradient(circle at 35% 30%, #7fdcff, #2a7bd1 40% #123a6b 80%);
-    box-shadow: 0 0 60px rgba(60,140,255,0.6), inset -20px -20px 50px rgba(0,0,0,0.4);
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.type-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #eaeaf5;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: 0.2s;
+}
+.type-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+.type-btn.active {
+  background: #6c7dff;
+  border-color: #6c7dff;
+}
+.space {
+  width: 340px;
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.planet {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  position: relative;
+  transition:
+    width 0.3s,
+    box-shadow 0.5s,
+    filter 0.5s;
+}
+.planet.earth {
+  background: radial-gradient(
+    circle at 35% 30%,
+    #7fdcff,
+    #2a7bd1 40%,
+    #123a6b 80%
+  );
+  box-shadow:
+    0 0 60px rgba(60, 140, 255, 0.6),
+    inset -20px -20px 50px rgba(0, 0, 0, 0.4);
+}
+.planet.lava {
+  background: radial-gradient(
+    circle at 35% 30%,
+    #ffcf6b,
+    #ff5722 40%,
+    #7a1a00 80%
+  );
+  box-shadow:
+    0 0 80px rgba(255, 90, 0, 0.7),
+    inset -20px -20px 50px rgba(0, 0, 0, 0.4);
+}
+.planet.ice {
+  background: radial-gradient(
+    circle at 35% 30%,
+    #ffffff,
+    #bfe9ff 40%,
+    #6badd6 80%
+  );
+  box-shadow:
+    0 0 60px rgba(150, 220, 255, 0.7),
+    inset -20px -20px 50px rgba(0, 0, 0, 0.2);
+}
+.planet.desert {
+  background: radial-gradient(
+    circle at 35% 30%,
+    #ffe6a8,
+    #e0a458 40%,
+    #7a4a1a 80%
+  );
+  box-shadow:
+    0 0 50px rgba(255, 190, 110, 0.5),
+    inset -20px -20px 50px rgba(0, 0, 0, 0.4);
+}
+.planet.alien {
+  background: radial-gradient(
+    circle at 35% 30%,
+    #d0ff9e,
+    #8a2be2 40%,
+    #2a0a4a 80%
+  );
+  box-shadow:
+    0 0 70px rgba(180, 90, 255, 0.6),
+    inset -20px -20px 50px rgba(0, 0, 0, 0.4);
 }

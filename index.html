@@ -15,9 +15,19 @@
     <main class="main">
         <section class="controls">
             <h2>controls</h2>
+            <div class="option">
+                <label>Planet Type</label>
+                <div class="button-row"id="typeButtons">
+                    <button class="type-btn active" data-type="earth">Earth</button>
+                    <button class="type-btn" data-type="lava">Lava</button>
+                    <button class="type-btn" data-type="ice">Ice</button>
+                    <button class="type-btn" data-type="desert">Desert</button>
+                    <button class="type-btn" data-type="alien">Alien</button>
+                </div>
+            </div>
         </section>
         <section class="space">
-            <div class="orbit-lines" id="orbitLines"></div>
+            <div class="planet earth" id="planet"></div>
         </section>
         <section class="info">
             <h2>Planet Profile</h2>
