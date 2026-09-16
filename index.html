@@ -45,6 +45,15 @@
                     <button class="moon-btn" data-moons="3">3</button>
                 </div>
             </div>
+            <div class="option">
+                <label>Atmosphere</label>
+                <select id="atmosphereSelect">
+                    <option value="none">None</option>
+                    <option value="thin">Thin</option>
+                    <option value="normal" selected>Normal</option>
+                    <option value="dense">Dense</option>
+                </select>
+            </div>
         </section>
         <section class="space">
             <div class="ring" id="ring"></div>
@@ -53,6 +62,15 @@
         </section>
         <section class="info">
             <h2>Planet Profile</h2>
+            <div class="stats" id="stats">
+                <p><span>Name:</span> <span id="statName">Unnamed World</span></p>
+                <p><span>Type:</span> <span id="statType">Earth</span></p>
+                <p><span>Diameter:</span> <span id="statDiameter">12,700 km</span></p>
+                <p><span>Moons:</span> <span id="statMoons">0</span></p>
+                <p><span>Gravity:</span> <span id="statGravity">1.0g</span></p>
+                <p><span>Temperature:</span> <span id="statTemp">24°C</span></p>
+                <p><span>Life:</span> <span id="statLife">Possible</span></p>
+            </div>
         </section>
     </main>
 <script src="script.js"></script>

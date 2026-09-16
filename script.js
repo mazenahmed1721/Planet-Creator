@@ -1,8 +1,10 @@
 let planet = {
+  name: "Unnamed World",
   type: "earth",
   size: 180,
   rings: true,
-  moons: 0
+  moons: 0,
+  atmosphere: "normal"
 };
 const planetEl = document.getElementById("planet");
 const ringEl = document.getElementById("ring");
@@ -11,6 +13,7 @@ const typeButtons = document.querySelectorAll(".type-btn");
 const ringButtons = document.querySelectorAll(".ring-btn");
 const moonButtons = document.querySelectorAll(".moon-btn");
 const sizeSlider = document.getElementById("sizeSlider");
+const atmosphereSelect = document.getElementById("atmosphereSelect");
 typeButtons.forEach(function (btn) {
   btn.addEventListener("click", function () {
     typeButtons.forEach(function (b) {
@@ -45,8 +48,12 @@ sizeSlider.addEventListener("input", function () {
   planet.size = parseInt(sizeSlider.value);
   updatePlanet();
 });
+atmosphereSelect.addEventListener("change", function (){ 
+  planet.atmosphere = atmosphereSelect.value;
+  updatePlanet();
+})
 function updatePlanet() {
-  planetEl.className = "planet " + planet.type;
+  planetEl.className = "planet " + planet.type + " atmo-" + planet.atmosphere;
   planetEl.style.width = planet.size + "px";
   planetEl.style.height = planet.size + "px";
   if (planet.rings) {
@@ -55,6 +62,7 @@ function updatePlanet() {
     ringEl.classList.add("hidden");
   }
   buildMoons();
+  updateStats();
 }
 function buildMoons() {
   moonsEl.innerHTML = "";
@@ -69,4 +77,51 @@ function buildMoons() {
     moon.style.marginTop = "-11px";
     moonsEl.appendChild(moon);
   }
+}
+function getStats() {
+  const sizeFactor = planet.size / 180;
+  const diameter = Math.round(12700 * sizeFactor);
+  const gravity = (1 * sizeFactor).toFixed(1);
+  let temperature = 24;
+  let life = "Possible";
+  if (planet.type === "lava") {
+    temperature = 847;
+    life = "Unlikely";
+  } else if (planet.type === "ice") {
+    temperature = -120;
+    life = "Unlikely";
+  } else if (planet.type === "desert") {
+    temperature = 58;
+    life = "Rare";
+  } else if (planet.type === "alien") {
+    temperature = -12;
+    life = "Unknown";
+  } else if (planet.type === "earth") {
+    temperature = 24;
+    life = "Possible";
+  }
+  if (planet.atmosphere === "none") {
+    temperature = temperature + 20;
+  } else if (planet.atmosphere === "dense") {
+    temperature = temperature + 15;
+  }
+  return {
+    diameter: diameter,
+    gravity: gravity,
+    temperature: temperature,
+    life: life
+  };
+}
+function capitalize(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
+function updateStats() {
+  const stats = getStats();
+  document.getElementById("statName").textContent = planet.name;
+  document.getElementById("statType").textContent = capitalize(planet.type);
+  document.getElementById("statDiameter").textContent = stats.diameter.toLocaleString() + " km";
+  document.getElementById("statMoons").textContent = planet.moons;
+  document.getElementById("statGravity").textContent = stats.gravity + "g";
+  document.getElementById("statTemp").textContent = stats.temperature + "°C";
+  document.getElementById("statLife").textContent = stats.life;
 }
