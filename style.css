@@ -99,6 +99,9 @@ body {
   background: #6c7dff;
   border-color: #6c7dff;
 }
+input[type="range"] {
+  width:100%;
+}
 .space {
   width: 340px;
   height: 240px;
