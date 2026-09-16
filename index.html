@@ -29,9 +29,17 @@
                 <label>Planet Size</label>
                 <input type="range" id="sizeSlider" min="100" max="260" value="180">
             </div>
+            <div class="option">
+                <label>Rings</label>
+                <div class="button-row">
+                    <button class="ring-btn active" data-rings="on">ON</button>
+                    <button class="ring-btn" data-rings="off">OFF</button>
+                </div>
+            </div>
         </section>
         <section class="space">
             <div class="planet earth" id="planet"></div>
+            <div class="ring" id="ring"></div>
         </section>
         <section class="info">
             <h2>Planet Profile</h2>
