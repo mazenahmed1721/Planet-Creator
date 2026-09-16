@@ -82,7 +82,9 @@ body {
   flex-wrap: wrap;
   gap: 6px;
 }
-.type-btn, .ring-btn {
+.type-btn,
+.ring-btn,
+.moon-btn {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: #eaeaf5;
@@ -92,15 +94,19 @@ body {
   font-size: 0.75rem;
   transition: 0.2s;
 }
-.type-btn:hover, .ring-btn:hover  {
+.type-btn:hover,
+.ring-btn:hover,
+.moon-btn:hover {
   background: rgba(255, 255, 255, 0.18);
 }
-.type-btn.active, .ring-btn:active {
+.type-btn.active,
+.ring-btn:active,
+.moon-btn.active {
   background: #6c7dff;
   border-color: #6c7dff;
 }
 input[type="range"] {
-  width:100%;
+  width: 100%;
 }
 .space {
   width: 340px;
@@ -187,4 +193,30 @@ input[type="range"] {
 }
 .ring.hidden {
   display: none;
+}
+.moons {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+.moon {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff, #999 60%, #444);
+  top: 50%;
+  left: 50%;
+  animation: orbit linear infinite;
+}
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg);
+  }
 }
