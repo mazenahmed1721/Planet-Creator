@@ -130,15 +130,23 @@ function updateStats() {
   document.getElementById("statTemp").textContent = stats.temperature + "°C";
   document.getElementById("statLife").textContent = stats.life;
 }
+const namePrefixes = ["Zor", "Vel", "kar", "Astra", "Nyx", "Tal", "Quor", "Bel", "Dra", "Xen"];
+const nameSuffixes = ["vella", "trix", "ion", "ara", "eth", "ora", "ix", "us", "on", "ova"];
+function generatePlanetName() {
+  const prefix = namePrefixes[Math.floor(Math.random() * namePrefixes.length)];
+  const suffix = nameSuffixes[Math.floor(Math.random() * nameSuffixes.length)];
+  const number = Math.floor(Math.random() * 13) + 1;
+  return prefix + suffix + "-" + number;
+}
 function generateRandomPlanet() {
   const types = ["earth", "lava", "ice", "desert", "alien"];
   const atmospheres = ["none", "thin", "normal", "dense"];
   planet.type = types[Math.floor(Math.random() * types.length)];
   planet.size = Math.floor(Math.random() * 160) + 100;
-  planet.atmosphere =
-    atmospheres[Math.floor(Math.random() * atmospheres.length)];
+  planet.atmosphere = atmospheres[Math.floor(Math.random() * atmospheres.length)];
   planet.moons = Math.floor(Math.random() * 4);
   planet.rings = Math.random() > 0.5;
+  planet.name = generatePlanetName();
   typeButtons.forEach(function (b) {
     b.classList.toggle("active", b.dataset.type === planet.type);
   });
