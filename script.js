@@ -4,7 +4,7 @@ let planet = {
   size: 180,
   rings: true,
   moons: 0,
-  atmosphere: "normal"
+  atmosphere: "normal",
 };
 const planetEl = document.getElementById("planet");
 const ringEl = document.getElementById("ring");
@@ -14,6 +14,7 @@ const ringButtons = document.querySelectorAll(".ring-btn");
 const moonButtons = document.querySelectorAll(".moon-btn");
 const sizeSlider = document.getElementById("sizeSlider");
 const atmosphereSelect = document.getElementById("atmosphereSelect");
+const randomBtn = document.getElementById("randomBtn");
 typeButtons.forEach(function (btn) {
   btn.addEventListener("click", function () {
     typeButtons.forEach(function (b) {
@@ -25,7 +26,7 @@ typeButtons.forEach(function (btn) {
   });
 });
 ringButtons.forEach(function (btn) {
-  btn.addEventListener("click", function (){
+  btn.addEventListener("click", function () {
     ringButtons.forEach(function (b) {
       b.classList.remove("active");
     });
@@ -48,10 +49,13 @@ sizeSlider.addEventListener("input", function () {
   planet.size = parseInt(sizeSlider.value);
   updatePlanet();
 });
-atmosphereSelect.addEventListener("change", function (){ 
+atmosphereSelect.addEventListener("change", function () {
   planet.atmosphere = atmosphereSelect.value;
   updatePlanet();
-})
+});
+randomBtn.addEventListener("click", function () {
+  generateRandomPlanet();
+});
 function updatePlanet() {
   planetEl.className = "planet " + planet.type + " atmo-" + planet.atmosphere;
   planetEl.style.width = planet.size + "px";
@@ -109,7 +113,7 @@ function getStats() {
     diameter: diameter,
     gravity: gravity,
     temperature: temperature,
-    life: life
+    life: life,
   };
 }
 function capitalize(word) {
@@ -119,9 +123,33 @@ function updateStats() {
   const stats = getStats();
   document.getElementById("statName").textContent = planet.name;
   document.getElementById("statType").textContent = capitalize(planet.type);
-  document.getElementById("statDiameter").textContent = stats.diameter.toLocaleString() + " km";
+  document.getElementById("statDiameter").textContent =
+    stats.diameter.toLocaleString() + " km";
   document.getElementById("statMoons").textContent = planet.moons;
   document.getElementById("statGravity").textContent = stats.gravity + "g";
   document.getElementById("statTemp").textContent = stats.temperature + "°C";
   document.getElementById("statLife").textContent = stats.life;
+}
+function generateRandomPlanet() {
+  const types = ["earth", "lava", "ice", "desert", "alien"];
+  const atmospheres = ["none", "thin", "normal", "dense"];
+  planet.type = types[Math.floor(Math.random() * types.length)];
+  planet.size = Math.floor(Math.random() * 160) + 100;
+  planet.atmosphere =
+    atmospheres[Math.floor(Math.random() * atmospheres.length)];
+  planet.moons = Math.floor(Math.random() * 4);
+  planet.rings = Math.random() > 0.5;
+  typeButtons.forEach(function (b) {
+    b.classList.toggle("active", b.dataset.type === planet.type);
+  });
+  moonButtons.forEach(function (b) {
+    b.classList.toggle("active", parseInt(b.dataset.moons) === planet.moons);
+  });
+  ringButtons.forEach(function (b) {
+    const isOn = b.dataset.rings === "on";
+    b.classList.toggle("active", isOn === planet.rings);
+  });
+  sizeSlider.value = planet.size;
+  atmosphereSelect.value = planet.atmosphere;
+  updatePlanet();
 }

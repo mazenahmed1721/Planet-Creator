@@ -116,6 +116,24 @@ select {
   padding: 6px;
   border-radius: 8px;
 }
+.button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #6c7dff;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.button:hover {
+  background: #8a99ff;
+  box-shadow: 0 0 15px rgba(120, 140, 250, 0.6);
+  transform: translateY(-2px);
+}
 .space {
   width: 340px;
   height: 240px;
