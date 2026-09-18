@@ -55,25 +55,36 @@
                 </select>
             </div>
             <button class="button random-btn" id="randomBtn">GENERATE RANDOM PLANET</button>
+            <button class="button same-btn" id="saveBtn">SAVE MY PLANET</button>
         </section>
         <section class="space">
             <div class="ring" id="ring"></div>
             <div class="planet earth" id="planet"></div>
             <div class="moons" id="moons"></div>
-        </section>
-        <section class="info">
-            <h2>Planet Profile</h2>
-            <div class="stats" id="stats">
-                <p><span>Name:</span> <span id="statName">Unnamed World</span></p>
-                <p><span>Type:</span> <span id="statType">Earth</span></p>
-                <p><span>Diameter:</span> <span id="statDiameter">12,700 km</span></p>
-                <p><span>Moons:</span> <span id="statMoons">0</span></p>
-                <p><span>Gravity:</span> <span id="statGravity">1.0g</span></p>
-                <p><span>Temperature:</span> <span id="statTemp">24°C</span></p>
-                <p><span>Life:</span> <span id="statLife">Possible</span></p>
-            </div>
-        </section>
-    </main>
+    </section>
+    <section class="info">
+        <h2>Planet Profile</h2>
+        <div class="stats" id="stats">
+            <p><span>Name:</span> <span id="statName">Unnamed World</span></p>
+            <p><span>Type:</span> <span id="statType">Earth</span></p>
+            <p><span>Diameter:</span> <span id="statDiameter">12,700 km</span></p>
+            <p><span>Moons:</span> <span id="statMoons">0</span></p>
+            <p><span>Gravity:</span> <span id="statGravity">1.0g</span></p>
+            <p><span>Temperature:</span> <span id="statTemp">24°C</span></p>
+            <p><span>Life:</span> <span id="statLife">Possible</span></p>
+        </div>
+    </section>
+</main>
+<div class="modal" id="modal">
+    <div class="modal-box">
+        <h2>YOUR PLANET HAS BEEN CREATED</h2>
+        <p><span>Name:</span> <span id="modalName"></span></p>
+        <p><span>Type:</span> <span id="modalType"></span></p>
+        <p><span>Moons:</span> <span id="modalMoons"></span></p>
+        <p id="modalDescription"></p>
+        <button class="button" id="closeModalBtn">CREATE ANOTHER PLANET</button>
+    </div>
+</div>
 <script src="script.js"></script>
 </body>
 </html>

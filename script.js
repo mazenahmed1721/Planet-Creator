@@ -15,6 +15,9 @@ const moonButtons = document.querySelectorAll(".moon-btn");
 const sizeSlider = document.getElementById("sizeSlider");
 const atmosphereSelect = document.getElementById("atmosphereSelect");
 const randomBtn = document.getElementById("randomBtn");
+const saveBtn = document.getElementById("saveBtn");
+const closeModalBtn = document.getElementById("closeModalBtn");
+const modal = document.getElementById("modal");
 typeButtons.forEach(function (btn) {
   btn.addEventListener("click", function () {
     typeButtons.forEach(function (b) {
@@ -55,6 +58,12 @@ atmosphereSelect.addEventListener("change", function () {
 });
 randomBtn.addEventListener("click", function () {
   generateRandomPlanet();
+});
+saveBtn.addEventListener("click", function () {
+  openModal();
+})
+closeModalBtn.addEventListener("click", function () {
+  closeModal();
 });
 function updatePlanet() {
   planetEl.className = "planet " + planet.type + " atmo-" + planet.atmosphere;
@@ -130,7 +139,7 @@ function updateStats() {
   document.getElementById("statTemp").textContent = stats.temperature + "°C";
   document.getElementById("statLife").textContent = stats.life;
 }
-const namePrefixes = ["Zor", "Vel", "kar", "Astra", "Nyx", "Tal", "Quor", "Bel", "Dra", "Xen"];
+const namePrefixes = ["Zor", "Vel", "Kar", "Astra", "Nyx", "Tal", "Quor", "Bel", "Dra", "Xen"];
 const nameSuffixes = ["vella", "trix", "ion", "ara", "eth", "ora", "ix", "us", "on", "ova"];
 function generatePlanetName() {
   const prefix = namePrefixes[Math.floor(Math.random() * namePrefixes.length)];
@@ -161,3 +170,63 @@ function generateRandomPlanet() {
   atmosphereSelect.value = planet.atmosphere;
   updatePlanet();
 }
+function getDescription() {
+  let text = planet.name + " is a " + planet.type + " world";
+  if (planet.moons === 0) {
+    text += " with no moons";
+  } else if (planet.moons === 1) {
+    text += " with a single moon";
+  } else {
+    text += " with " + planet.moons + " moons";
+  }
+  if (planet.rings) {
+    text += " and a faint ring system";
+  }
+  if (planet.type === "lava") {
+    text += ". Its surface glows with rivers of molten rock.";
+  } else if (planet.type === "ice") {
+    text += ". Frozen winds sweep across its frozen plains.";
+  } else if (planet.type === "desert") {
+    text += ". Endless dunes stretch across its dry surface.";
+  } else if (planet.type === "alien") {
+    text += ". Strange colors and unknown life may exist here.";
+  } else {
+    text += ". Oceans and land shape a familiar world.";
+  }
+  return text;
+}
+function openModal() {
+  if (planet.name === "Unnamed World") {
+    planet.name = generatePlanetName();
+    updateStats();
+  }
+  document.getElementById("modalName").textContent = planet.name;
+  document.getElementById("modalType").textContent = capitalize(planet.type);
+  document.getElementById("modalMoons").textContent = planet.moons;
+  document.getElementById("modalDescription").textContent = getDescription();
+  modal.classList.add("show");
+}
+function closeModal() {
+  modal.classList.remove("show");
+  planet = {
+    name: "Unnamed World",
+    type: "earth",
+    size: 180,
+    rings: true,
+    moons: 0,
+    atmosphere: "normal"
+  };
+  typeButtons.forEach(function (b) {
+    b.classList.toggle("active", b.dataset.type === "earth");
+  });
+  moonButtons.forEach(function (b) {
+    b.classList.toggle("active", b.dataset.moons === "0");
+  });
+  ringButtons.forEach(function (b) {
+    b.classList.toggle("active", b.dataset.rings === "on");
+  });
+  sizeSlider.value = 180;
+  atmosphereSelect.value = "normal";
+  updatePlanet();
+}
+updatePlanet();
