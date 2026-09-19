@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planet Creaator </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Space+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="stars"></div>
+    <div class="floating-stars" id="floatingStars"></div>
     <header class="header">
         <h1> PLANET CREATOR </h1>
         <p> Build a world tat exists nowhere else!!</p>
@@ -55,12 +59,15 @@
                 </select>
             </div>
             <button class="button random-btn" id="randomBtn">GENERATE RANDOM PLANET</button>
-            <button class="button same-btn" id="saveBtn">SAVE MY PLANET</button>
+            <button class="button save-btn" id="saveBtn">SAVE MY PLANET</button>
         </section>
         <section class="space">
+            <div class="orbit-lines" id="orbitLines"></div>
             <div class="ring" id="ring"></div>
+            <div class="scan" id="scan"></div>
             <div class="planet earth" id="planet"></div>
             <div class="moons" id="moons"></div>
+            <p class="readout" id="readout">DESIGNATION: UNCHARTED · SECTOR 00.0 / 00.0</p>
     </section>
     <section class="info">
         <h2>Planet Profile</h2>

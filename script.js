@@ -5,10 +5,16 @@ let planet = {
   rings: true,
   moons: 0,
   atmosphere: "normal",
+  coordX: 0,
+  coordY: 0
 };
 const planetEl = document.getElementById("planet");
 const ringEl = document.getElementById("ring");
 const moonsEl = document.getElementById("moons");
+const orbitLinesEl = document.getElementById("orbitLines");
+const readoutEl = document.getElementById("readout");
+const scanEl = document.getElementById("scan");
+const floatingStarsEl = document.getElementById("floatingStars");
 const typeButtons = document.querySelectorAll(".type-btn");
 const ringButtons = document.querySelectorAll(".ring-btn");
 const moonButtons = document.querySelectorAll(".moon-btn");
@@ -69,16 +75,22 @@ function updatePlanet() {
   planetEl.className = "planet " + planet.type + " atmo-" + planet.atmosphere;
   planetEl.style.width = planet.size + "px";
   planetEl.style.height = planet.size + "px";
+  planetEl.classList.add("changing");
+  setTimeout(function () {
+    planetEl.classList.remove("changing");
+  }, 400);
   if (planet.rings) {
     ringEl.classList.remove("hidden");
   } else {
     ringEl.classList.add("hidden");
   }
   buildMoons();
+  updateReadout();
   updateStats();
 }
 function buildMoons() {
   moonsEl.innerHTML = "";
+  orbitLinesEl.innerHTML = "";
   for (let i = 0; i < planet.moons; i++) {
     const radius = planet.size / 2 + 30 + i * 20;
     const speed = 6 + i * 3;
@@ -89,6 +101,13 @@ function buildMoons() {
     moon.style.marginLeft = "-11px";
     moon.style.marginTop = "-11px";
     moonsEl.appendChild(moon);
+    const orbitLine = document.createElement("div");
+    orbitLine.className = "orbit-line";
+    orbitLine.style.width = radius * 2 + "px";
+    orbitLine.style.height = radius * 2 + "px";
+    orbitLine.style.marginLeft = -radius + "px";
+    orbitLine.style.marginTop = -radius + "px";
+    orbitLinesEl.appendChild(orbitLine);
   }
 }
 function getStats() {
@@ -139,6 +158,14 @@ function updateStats() {
   document.getElementById("statTemp").textContent = stats.temperature + "°C";
   document.getElementById("statLife").textContent = stats.life;
 }
+function updateReadout() {
+  const label = planet.name === "Unnamed World" ? "UNCHARTED" : planet.name.toUpperCase();
+  readoutEl.textContent = "DESIGNATION: " + label + " · SECTOR " + planet.coordX + " / " + planet.coordY;
+}
+function rollCoordinates() {
+  planet.coordX = (Math.random() * 180 - 90).toFixed(1);
+  planet.coordY = (Math.random() * 180 - 90) .toFixed(1);
+}
 const namePrefixes = ["Zor", "Vel", "Kar", "Astra", "Nyx", "Tal", "Quor", "Bel", "Dra", "Xen"];
 const nameSuffixes = ["vella", "trix", "ion", "ara", "eth", "ora", "ix", "us", "on", "ova"];
 function generatePlanetName() {
@@ -156,6 +183,7 @@ function generateRandomPlanet() {
   planet.moons = Math.floor(Math.random() * 4);
   planet.rings = Math.random() > 0.5;
   planet.name = generatePlanetName();
+  rollCoordinates();
   typeButtons.forEach(function (b) {
     b.classList.toggle("active", b.dataset.type === planet.type);
   });
@@ -168,6 +196,9 @@ function generateRandomPlanet() {
   });
   sizeSlider.value = planet.size;
   atmosphereSelect.value = planet.atmosphere;
+  scanEl.classList.remove("spinning");
+  void scanEl.offsetWidth;
+  scanEl.classList.add("spinning");
   updatePlanet();
 }
 function getDescription() {
@@ -198,6 +229,8 @@ function getDescription() {
 function openModal() {
   if (planet.name === "Unnamed World") {
     planet.name = generatePlanetName();
+    rollCoordinates();
+    updateReadout();
     updateStats();
   }
   document.getElementById("modalName").textContent = planet.name;
@@ -214,7 +247,9 @@ function closeModal() {
     size: 180,
     rings: true,
     moons: 0,
-    atmosphere: "normal"
+    atmosphere: "normal",
+    coordX: 0,
+    coordY: 0
   };
   typeButtons.forEach(function (b) {
     b.classList.toggle("active", b.dataset.type === "earth");
@@ -229,4 +264,16 @@ function closeModal() {
   atmosphereSelect.value = "normal";
   updatePlanet();
 }
+function createFloatingStars() {
+  for (let i = 0; i < 20; i++){
+    const star = document.createElement("div");
+    star.className = "floating-star";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.animationDuration = 3 + Math.random() * 4 + "s";
+    star.style.animationDelay = Math.random() * 4 + "s";
+    floatingStarsEl.appendChild(star);
+  }
+}
+createFloatingStars();
 updatePlanet();

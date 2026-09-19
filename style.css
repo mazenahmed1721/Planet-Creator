@@ -8,6 +8,21 @@ body {
   color: #eaeaf5;
   overflow-x: hidden;
 }
+h1,
+h2,
+.button,
+.type-btn,
+.ring-btn,
+.moon-btn {
+  font-family: "Orbitron", Arial, sans-serif;
+}
+.readout,
+.stats span,
+#modalName,
+#modalType,
+#modalMoons {
+  font-family: "Space Mono", monospace;
+}
 .stars {
   position: fixed;
   top: 0;
@@ -26,6 +41,43 @@ body {
   background-size: 550px 550px;
   opacity: 0.5;
   z-index: -2;
+  animation: driftStars 120s linear infinite;
+}
+@keyframes driftStars {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-300px, -300px);
+  }
+}
+.floating-stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+.floating-star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle 4s ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.6);
+  }
 }
 .header {
   text-align: center;
@@ -136,12 +188,27 @@ select {
 }
 .space {
   width: 340px;
-  height: 240px;
+  height: 340px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
+}
+.orbit-lines {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+.orbit-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1px dashed rgba(180, 190, 255, 0.18);
+  border-radius: 50%;
 }
 .planet {
   width: 180px;
@@ -150,8 +217,23 @@ select {
   position: relative;
   transition:
     width 0.3s,
+    height 0.3s,
     box-shadow 0.5s,
     filter 0.5s;
+}
+.planet.changing {
+  animation: pulse 0.4s ease-out;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 .planet.earth {
   background: radial-gradient(
@@ -220,6 +302,27 @@ select {
 .ring.hidden {
   display: none;
 }
+.scan {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgba(140, 160, 255, 0.5);
+  border-top-color: transparent;
+  border-radius: 50%;
+  opacity: 0;
+}
+.scan.spinning {
+  opacity: 1;
+  animation: spin 0.6s linear;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(720deg);
+  }
+}
 .moons {
   position: absolute;
   width: 100%;
@@ -245,6 +348,12 @@ select {
   to {
     transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg);
   }
+}
+.readout {
+  margin-top: 14px;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: #7d87b8;
 }
 .planet.atmo-thin {
   box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
@@ -298,4 +407,14 @@ select {
   color: #a0a8c0;
   margin-right: 6px;
   font-family: Arial, Helvetica, sans-serif;
+}
+@media (max-width: 900px) {
+  .main {
+    flex-direction: column;
+    align-items: center;
+  }
+  .controls, .info {
+    width: 100%;
+    max-width: 340px;
+  }
 }
