@@ -13,6 +13,7 @@ You can choose the planet type, size, rings, number of moons, and atmosphere. Yo
 <p align="center">
     <img src="web.png" width="850">
 </p>
+The image above is a screenshot of the working website.
 
 ## Languages Used
 
